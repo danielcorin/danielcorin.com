@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block header %}Curses{% endblock %}
+{% block head %}
+	<link href="{% static 'css/curses.css' %}" rel="stylesheet">
+	{% endblock %}
+{% block body %}
+	{% csrf_token %}
+	<div class="col-md-6">
+		<div class="name" id="DC">Danny&nbsp;<span class="glyphicon glyphicon-chevron-up increment"></span></div>
+		<div class="count" id="count_danny">Count:&nbsp;
+			<span class="count_value">{{ count_danny }}</span><br>
+			$<span class="amt">{{ amt_danny }}</span>
+			<div class="dates">
+				<div class="date">{{ recent_danny.date }}</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="name" id="DD">Des&nbsp;<span class="glyphicon glyphicon-chevron-up increment"></span></div>
+		<div class="count" id="count_des">Count:&nbsp;
+			<span class="count_value">{{ count_des }}</span><br>
+			$<span class="amt">{{ amt_des }}</span>
+			<div class="dates">
+				<div class="date">{{ recent_des.date }}</div>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+{% block jsfiles %}
+	<script type="text/javascript" src="{% static 'js/cursed.js' %}"></script>
+{% endblock %}

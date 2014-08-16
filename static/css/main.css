@@ -1,0 +1,18 @@
+* {
+	font-family: 'Bitter', serif;
+	margin: 0;
+}
+
+#header {
+	font-size: 40pt;
+	font-style: bold;
+	text-align: left;
+}
+
+html, body {
+	height: 100%;
+}
+
+.footer, .push {
+	height: 4em;
+}

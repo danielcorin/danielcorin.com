@@ -1,0 +1,9 @@
+* {
+	font-family: 'Bitter', serif;
+}
+
+#header {
+	font-size: 40pt;
+	font-style: bold;
+	text-align: left;
+}

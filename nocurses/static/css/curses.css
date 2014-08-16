@@ -1,0 +1,15 @@
+.name {
+	font-size: 20pt;
+}
+
+.count {
+	font-size: 15pt;
+}
+
+.glyphicon-chevron-up {
+	color: #D9534F;
+}
+
+.glyphicon-chevron-up:hover {
+	opacity: 0.5;
+}
