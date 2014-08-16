@@ -41,14 +41,14 @@ def github():
 	user = item['actor']['login']
 	created_at = dateutil.parser.parse(item['created_at'])
 	url_template = "https://github.com/%s"
+	user_url = url_template % user
 
 	return {
 		"commit_message":commit['message'],
 		"user":user,
-		"user":user,
 		"repo_name":repo_name,
-		"url_template":url_template,
 		"created_at":created_at,
+		"user_url":user_url,
 	}
 
 def last_fm():
@@ -65,12 +65,14 @@ def last_fm():
 	artist = track['artist']['#text']
 	date = dateutil.parser.parse(track['date']['#text'])
 	url = track['url']
+	user_url = "http://www.last.fm/user/%s" % (user)
 
 	return {
 		"title":title,
 		"artist":artist,
 		"date":date,
 		"url":url,
+		"user_url":user_url
 	}
 
 
@@ -113,10 +115,12 @@ def twitter():
 	date = dateutil.parser.parse(last_tweet['created_at'])
 	tweet_id = last_tweet['id']
 	tweet_url = "https://twitter.com/%s/status/%d" % (USER, tweet_id)
+	user_url = "https://twitter.com/%s" % USER
 	info =  {
 		"text":text,
 		"date":date,
 		"tweet_url":tweet_url,
+		"user_url":user_url,
 	}
 	return info
 
@@ -143,6 +147,7 @@ def strava():
 	elapsed_time = datetime.timedelta(seconds=data['elapsed_time'])
 	activity_type = data['type']
 	activity_url = "http://www.strava.com/activities/%s" % data['id']
+	athlete_url = "http://www.strava.com/athletes/%d" % (ATHLETE_ID)
 
 	return {
 		"name":name,
@@ -153,6 +158,7 @@ def strava():
 		"elapsed_time":str(elapsed_time),
 		"activity_type":activity_type,
 		"activity_url":activity_url,
+		"athlete_url":athlete_url,
 	}
 
 def goodreads():
@@ -180,5 +186,8 @@ def goodreads():
 			"author":author,
 			"started_at":started_at,
 		})
-	return currently_reading
+	return {
+		"user_url": "https://www.goodreads.com/review/list/%d" % (USER_ID),
+		"currently_reading":currently_reading,
+	}
 

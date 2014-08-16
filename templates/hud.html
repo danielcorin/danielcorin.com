@@ -6,7 +6,7 @@
 {% block main %}
 	<div class="col-md-6">
 		<div id="github">
-			<h3>Github</h3>
+			<h3><a href="{{ github.user_url }}">Github</a></h3>
 			<p>
 			Repo: <a href="{{ github.repo_url}}">{{ github.repo_name }}</a><br>
 			Commit message: {{ github.commit_message }}<br>
@@ -14,14 +14,14 @@
 			</p>
 		</div>
 		<div id="lastfm">
-			<h3>Last.fm</h3>
+			<h3><a href="{{ lastfm.user_url }}">Last.fm</a></h3>
 			<p>
 			<a href="{{ lastfm.url }}">{{ lastfm.title }} - {{ lastfm.artist }}</a><br>
 			Played at: {{ lastfm.date }}
 			</p>
 		</div>
 		<div id="twitter">
-			<h3>Twitter</h3>
+			<h3><a href="{{ twitter.user_url }}">Twitter</a></h3>
 			<p>
 			{{ twitter.text }}<br>
 			{{ twitter.date }}<br>
@@ -31,7 +31,7 @@
 	</div>
 	<div class="col-md-6">
 		<div id="strava">
-			<h3>Strava</h3>
+			<h3><a href="{{ strava.athlete_url }}">Strava</a></h3>
 			<p>
 			<a href="{{ strava.activity_url }}">{{ strava.name }}</a> - {{ strava.activity_type }}<br>
 			{{ strava.start_date }}<br>
@@ -42,8 +42,8 @@
 			</p>
 		</div>
 		<div id="goodreads">
-			<h3>Goodreads</h3>
-			{% for book in goodreads %}
+			<h3><a href="{{ goodreads.user_url }}">Goodreads</a></h3>
+			{% for book in goodreads.currently_reading %}
 				<p>
 				{{ book.title }} - {{ book.author }}<br>
 				Started at: {{ book.started_at }}
