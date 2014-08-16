@@ -27,21 +27,26 @@ def github():
 
 	r = requests.get(url=url)
 	data = r.json()
-	item = data[0]
+
+	item = None
+	for i in data:
+		if i['type'] == "PushEvent":
+			item = i
+			
 	payload = item['payload']
 	repo = item['repo']
 	commit = payload['commits'][0]
 	repo_name = repo['name']
 	user = item['actor']['login']
-	created_at = dateutil.parser.parse(item['created_at'])
+	created_at = item['created_at']
 	url_template = "https://github.com/%s"
 
-	return {
+	print {
 		"commit_message":commit['message'],
 		"user":user,
-		"user_url":url_template % user,
+		"user":user,
 		"repo_name":repo_name,
-		"repo_url":url_template % repo_name,
+		"url_template":url_template,
 		"created_at":created_at,
 	}
 
