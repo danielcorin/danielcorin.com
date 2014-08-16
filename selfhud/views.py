@@ -79,6 +79,7 @@ def twitter():
 	CONSUMER_SECRET = auth.twitter['consumer_secret']
 	OAUTH_TOKEN = auth.twitter['oauth_token']
 	OAUTH_TOKEN_SECRET = auth.twitter['oauth_token_secret']
+	USER = auth.twitter['user']
 
 
 	def get_oauth():
@@ -110,9 +111,12 @@ def twitter():
 		pass
 	text = last_tweet['text']
 	date = dateutil.parser.parse(last_tweet['created_at'])
+	tweet_id = last_tweet['id']
+	tweet_url = "https://twitter.com/%s/status/%d" % (USER, tweet_id)
 	info =  {
 		"text":text,
 		"date":date,
+		"tweet_url":tweet_url,
 	}
 	return info
 
