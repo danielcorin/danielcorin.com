@@ -32,16 +32,17 @@ def github():
 	for i in data:
 		if i['type'] == "PushEvent":
 			item = i
+			break
 			
 	payload = item['payload']
 	repo = item['repo']
 	commit = payload['commits'][0]
 	repo_name = repo['name']
 	user = item['actor']['login']
-	created_at = item['created_at']
+	created_at = dateutil.parser.parse(item['created_at'])
 	url_template = "https://github.com/%s"
 
-	print {
+	return {
 		"commit_message":commit['message'],
 		"user":user,
 		"user":user,
@@ -96,12 +97,24 @@ def twitter():
 		return data
 	tweets = get_tweets(oauth=get_oauth(), timeline="user_timeline", count=1)
 	last_tweet = tweets[0]
+	urls = []
+	try:
+		media = last_tweet['extended_entities']['media']
+		urls = []
+		for m in media:
+			try:
+				urls.append(m['url'])
+			except:
+				pass
+	except KeyError:
+		pass
 	text = last_tweet['text']
 	date = dateutil.parser.parse(last_tweet['created_at'])
-	return {
+	info =  {
 		"text":text,
 		"date":date,
 	}
+	return info
 
 def strava():
 	CLIENT_ID = auth.strava['client_id']
