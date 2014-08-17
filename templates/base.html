@@ -27,8 +27,8 @@
 					<div class="col-md-12">
 						<div class="navigation">
 							{% block navigation %}
-								<ul class="list-inline">
-									<li>danielcorin</li>
+								<ul class="nav nav-pills">
+									<li><a href="#">danielcorin</a></li>
 									<li><a href="/">Home</a></li>
 									<li><a href="http://blog.danielcorin.com">Blog</a></li>
 									<li><a href="/apps">Apps</a></li>
@@ -38,14 +38,10 @@
 						<div id="header">
 							{% block header %}{% endblock %}
 						</div>
-						{% block body %}
-							<div class="col-md-12" id="main-content">
-								{% block main %}
-								{% endblock %}
-							</div>
+						{% block main %}
 						{% endblock %}
-						<div class="footer">
-							<hr>
+						<div class="footer col-md-12">
+							<hr/>
 							Connect
 							<ul class="list-inline">
 								<li><a href="https://twitter.com/danielcorin1">Twitter</a></li>
