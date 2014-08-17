@@ -24,35 +24,35 @@
 			</head>
 			<body>
 				<div class="container">
-					<div class="navigation">
-						{% block navigation %}
-							<ul class="list-inline">
-								<li>danielcorin</li>
-								<li><a href="/">Home</a></li>
-								<li><a href="http://blog.danielcorin.com">Blog</a></li>
-								<li><a href="/apps">Apps</a></li>
-							</ul>
-						{% endblock %}
-					</div>
-					<div id="header">
-						{% block header %}{% endblock %}
-					</div>
-					{% block body %}
-						<div class="col-md-12" id="main-content">
-							{% block main %}
+					<div class="col-md-12">
+						<div class="navigation">
+							{% block navigation %}
+								<ul class="list-inline">
+									<li>danielcorin</li>
+									<li><a href="/">Home</a></li>
+									<li><a href="http://blog.danielcorin.com">Blog</a></li>
+									<li><a href="/apps">Apps</a></li>
+								</ul>
 							{% endblock %}
 						</div>
-					{% endblock %}
-				</div>
-				<div class="footer">
-					<div class="container">
-						<hr>
-						<p>Connect</p>
-						<ul class="list-inline">
-							<li><a href="https://twitter.com/danielcorin1">Twitter</a></li>
-							<li><a href="https://www.linkedin.com/pub/daniel-corin/59/806/132">LinkedIn</a></li>
-							<li><a href="https://github.com/danielcorin/">Github</a></li>
-						</ul>
+						<div id="header">
+							{% block header %}{% endblock %}
+						</div>
+						{% block body %}
+							<div class="col-md-12" id="main-content">
+								{% block main %}
+								{% endblock %}
+							</div>
+						{% endblock %}
+						<div class="footer">
+							<hr>
+							Connect
+							<ul class="list-inline">
+								<li><a href="https://twitter.com/danielcorin1">Twitter</a></li>
+								<li><a href="https://www.linkedin.com/pub/daniel-corin/59/806/132">LinkedIn</a></li>
+								<li><a href="https://github.com/danielcorin/">Github</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				{% block jsfiles %}{% endblock %}
