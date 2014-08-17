@@ -60,19 +60,28 @@ def last_fm():
 
 	r = requests.get(url=url)
 	data = r.json()
+	date = None
 	track = data['recenttracks']['track'][0]
 	title = track['name']
 	artist = track['artist']['#text']
-	date = dateutil.parser.parse(track['date']['#text'])
+	status = "No status"
+	if '@attr' in track:
+		if track['@attr']['nowplaying'] == "true":
+			status = "Now playing"
+	else:
+		date = track['date']['#text']
+		status = "Played at:"
+		date = dateutil.parser.parse(date)
 	url = track['url']
 	user_url = "http://www.last.fm/user/%s" % (user)
 
 	return {
 		"title":title,
 		"artist":artist,
-		"date":date,
+		"status":status,
 		"url":url,
-		"user_url":user_url
+		"user_url":user_url,
+		"date":date,
 	}
 
 
