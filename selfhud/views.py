@@ -28,6 +28,7 @@ def hud_view(request):
 	add_api(hud, "strava", strava())
 	add_api(hud, "goodreads", goodreads())
 	add_api(hud, "trakt", trakt())
+	add_api(hud, "kippt", kippt())
 
 	hud['execution_time'] = "%.2f" % (time.time() - start_time)
 	return render(request, 'hud.html', hud)
@@ -257,5 +258,23 @@ def trakt():
 		"episode_string":episode_string,
 		"movie_watched":movie_watched,
 		"episode_watched":episode_watched,
+	}
+
+def kippt():
+	USERNAME = auth.kippt['username']
+	base_url = "https://kippt.com"
+	user_url = "%s/%s" % (base_url, USERNAME)
+	url = "%s/api/users/%s/clips" % (base_url, USERNAME)
+
+	data = requests.get(url=url)
+	clips = data.json()
+
+	clip = clips['objects'][0]
+
+	return {
+		"clip_url":clip['url'],
+		"clip_title":clip['title'],
+		"user_url":user_url,
+		"created":datetime.datetime.fromtimestamp(clip['created'])
 	}
 

@@ -31,6 +31,13 @@
 			<a href="{{ twitter.tweet_url }}">Link</a>
 			</p>
 		</div>
+		<div id="kippt">
+			<h3><a href="{{ kippt.user_url }}">Kippt</a></h3>
+			<p>
+			<a href="{{ kippt.clip_url }}">{{ kippt.clip_title }}</a><br>
+			{{ kippt.created }}
+			</p>
+		</div>
 	</div>
 	<div class="col-md-6">
 		<div id="strava">
@@ -59,11 +66,11 @@
 			{{ trakt.movie_url }}">{{ trakt.movie_title }}</a><br>
 			{{ trakt.movie_watched }}</p>
 			<p>Show: <a href="
-			{{ trakt.show_url }}">{{ trakt.show_title }}:</a> <a href="{{ trakt.episode_url }}">{{ trakt.episode_string }}</a><br>
-			{{ trakt.episode_watched }}
-			</p>
+				{{ trakt.show_url }}">{{ trakt.show_title }}:</a> <a href="{{ trakt.episode_url }}">{{ trakt.episode_string }}</a><br>
+				{{ trakt.episode_watched }}
+				</p>
+			</div>
 		</div>
+		<p>Execution time: {{ execution_time }} seconds</p>
 	</div>
-	<p>Execution time: {{ execution_time }} seconds</p>
-</div>
 {% endblock %}
