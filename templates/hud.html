@@ -53,6 +53,17 @@
 				</p>
 			{% endfor %}
 		</div>
+		<div id="trakt">
+			<h3><a href="{{ trakt.user_url }}">Trakt.tv</a></h3>
+			<p>Movie: <a href="
+			{{ trakt.movie_url }}">{{ trakt.movie_title }}</a><br>
+			{{ trakt.movie_watched }}</p>
+			<p>Show: <a href="
+			{{ trakt.show_url }}">{{ trakt.show_title }}:</a> <a href="{{ trakt.episode_url }}">{{ trakt.episode_string }}</a><br>
+			{{ trakt.episode_watched }}
+			</p>
+		</div>
 	</div>
+	<p>Execution time: {{ execution_time }} seconds</p>
 </div>
 {% endblock %}

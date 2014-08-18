@@ -9,15 +9,20 @@ import datetime
 import urllib
 import xml.etree.ElementTree as ET
 import dateutil.parser
+import datetime
+import time
 
 def hud_view(request):
+	start_time = time.time()
 	hud = {
 		"github":github(),
 		"lastfm":last_fm(),
 		"twitter":twitter(),
 		"strava":strava(),
 		"goodreads":goodreads(),
+		"trakt":trakt(),
 	}
+	hud['execution_time'] = "%.2f" % (time.time() - start_time)
 	return render(request, 'hud.html', hud)
 
 def github():
@@ -200,5 +205,50 @@ def goodreads():
 	return {
 		"user_url": "https://www.goodreads.com/review/list/%d" % (USER_ID),
 		"currently_reading":currently_reading,
+	}
+
+def trakt():
+	USERNAME = auth.trakt['username']
+	API_KEY = auth.trakt['api_key']
+
+	user_url = "https://trakt.tv/user/%s" % USERNAME
+	movie_url = "http://api.trakt.tv/user/library/movies/watched.json/%s/%s" %(API_KEY, USERNAME)
+	show_url = "http://api.trakt.tv/user/library/shows/watched.json/%s/%s" % (API_KEY, USERNAME)
+
+	r = requests.get(url=movie_url)
+	movie_data = r.json()
+	r = requests.get(url=show_url)
+	show_data = r.json()
+
+	# get viewing times of most recent movie and episode
+	activity_url = "http://api.trakt.tv/user/lastactivity.json/%s/%s" % (API_KEY, USERNAME)
+	r = requests.get(url=activity_url)
+	activity_data = r.json()
+
+	movie_watched = datetime.datetime.fromtimestamp(activity_data['movie']['watched'])
+	episode_watched = datetime.datetime.fromtimestamp(activity_data['episode']['watched'])
+
+	# get info for most recently viewed movie and show
+	movie = movie_data[0]
+	show = show_data[0]
+
+	movie_url = movie['url']
+	show_url = show['url']
+
+	season = show['seasons'][0]['season']
+	episode = show['seasons'][0]['episodes'][0]
+	episode_url = "%s/season/%d/episode/%d" % (show_url, season, episode)
+	episode_string = "%dx%d" % (season, episode)
+
+	return {
+		"user_url":user_url,
+		"movie_title":movie['title'],
+		"movie_url":movie_url,
+		"show_title":show['title'],
+		"show_url":show_url,
+		"episode_url":episode_url,
+		"episode_string":episode_string,
+		"movie_watched":movie_watched,
+		"episode_watched":episode_watched,
 	}
 
