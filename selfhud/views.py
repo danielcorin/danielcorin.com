@@ -42,6 +42,7 @@ def github():
 	created_at = dateutil.parser.parse(item['created_at'])
 	url_template = "https://github.com/%s"
 	user_url = url_template % user
+	repo_url = url_template % repo_name
 
 	return {
 		"commit_message":commit['message'],
@@ -49,6 +50,7 @@ def github():
 		"repo_name":repo_name,
 		"created_at":created_at,
 		"user_url":user_url,
+		"repo_url":repo_url,
 	}
 
 def last_fm():
