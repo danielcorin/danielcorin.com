@@ -49,7 +49,8 @@ def github():
 			
 	payload = item['payload']
 	repo = item['repo']
-	commit = payload['commits'][0]
+	# newest commit
+	commit = payload['commits'][-1]
 	repo_name = repo['name']
 	user = item['actor']['login']
 	created_at = dateutil.parser.parse(item['created_at'])
