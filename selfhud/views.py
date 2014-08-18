@@ -12,16 +12,23 @@ import dateutil.parser
 import datetime
 import time
 
+def add_api(hud, name, d):
+	try:
+		hud[name] = d
+	except:
+		pass
+
 def hud_view(request):
 	start_time = time.time()
-	hud = {
-		"github":github(),
-		"lastfm":last_fm(),
-		"twitter":twitter(),
-		"strava":strava(),
-		"goodreads":goodreads(),
-		"trakt":trakt(),
-	}
+	hud = {}
+
+	add_api(hud, "github", github())
+	add_api(hud, "lastfm", last_fm())
+	add_api(hud, "twitter", twitter())
+	add_api(hud, "strava", strava())
+	add_api(hud, "goodreads", goodreads())
+	add_api(hud, "trakt", trakt())
+
 	hud['execution_time'] = "%.2f" % (time.time() - start_time)
 	return render(request, 'hud.html', hud)
 
