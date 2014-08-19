@@ -186,34 +186,46 @@ def strava():
 		"athlete_url":athlete_url,
 	}
 
+def get_root(url):
+	tree = ET.parse(urllib.urlopen(url))
+	return tree.getroot()
+
 def goodreads():
 	KEY = auth.goodreads['key']
 	SECRET_KEY = auth.goodreads['secret_key']
 	USER_ID = auth.goodreads['user_id']
 
+	# get most recent status
+	status_url = "https://www.goodreads.com/user/show/%d.xml?key=%s" % (USER_ID, KEY)
+	r = get_root(status_url)
+	update = r.find('user').find('updates').find('update')
+	action_text = update.find('action_text').text[3:] # chop off 'is ' from api
+	updated_at = dateutil.parser.parse(update.find('updated_at').text)
+
+	# get books in currently-reading list
 	url = "https://www.goodreads.com/review/list/%d.xml?key=%s&v=2&shelf=currently-reading"
 	url = url  % (USER_ID, KEY)
-
 	currently_reading = []
-
-	tree = ET.parse(urllib.urlopen(url))
-	root = tree.getroot()
-
+	root = get_root(url)
 	reviews = root.find('reviews')
 
 	for review in reviews.findall('review'):
 		book = review.find('book')
 		title = book.find('title').text
+		link = book.find('link').text
 		author = book.find('authors').find('author').find('name').text
 		started_at = dateutil.parser.parse(review.find('started_at').text)
 		currently_reading.append({
 			"title":title,
 			"author":author,
 			"started_at":started_at,
+			"link":link,
 		})
 	return {
 		"user_url": "https://www.goodreads.com/review/list/%d" % (USER_ID),
 		"currently_reading":currently_reading,
+		"action_text":action_text,
+		"updated_at":updated_at,
 	}
 
 def trakt():
