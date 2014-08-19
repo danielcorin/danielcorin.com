@@ -12,23 +12,25 @@ import dateutil.parser
 import datetime
 import time
 
-def add_api(hud, name, d):
+def add_api(hud, name, func):
 	try:
-		hud[name] = d
+		start_time = time.time()
+		hud[name] = func()
+		hud[name]['time'] = "%.2f" % (time.time() - start_time)
 	except:
 		pass
 
 def hud_view(request):
 	start_time = time.time()
 	hud = {}
-
-	add_api(hud, "github", github())
-	add_api(hud, "lastfm", last_fm())
-	add_api(hud, "twitter", twitter())
-	add_api(hud, "strava", strava())
-	add_api(hud, "goodreads", goodreads())
-	add_api(hud, "trakt", trakt())
-	add_api(hud, "kippt", kippt())
+	add_api(hud, "github", github)
+	add_api(hud, "lastfm", last_fm)
+	add_api(hud, "twitter", twitter)
+	add_api(hud, "strava", strava)
+	add_api(hud, "goodreads", goodreads)
+	add_api(hud, "trakt", trakt)
+	add_api(hud, "kippt", kippt)
+	add_api(hud, "untappd", untappd)
 
 	hud['execution_time'] = "%.2f" % (time.time() - start_time)
 	return render(request, 'hud.html', hud)
@@ -289,5 +291,32 @@ def kippt():
 		"clip_title":clip['title'],
 		"user_url":user_url,
 		"created":datetime.datetime.fromtimestamp(clip['created'])
+	}
+
+def untappd():
+	USERNAME = auth.untappd['username']
+	CLIENT_ID = auth.untappd['client_id']
+	CLIENT_SECRET = auth.untappd['client_secret']
+	user_url = "https://untappd.com/user/%s" % (USERNAME)
+
+	url = "http://api.untappd.com/v4/user/checkins/%s?client_id=%s&client_secret=%s" % (USERNAME, CLIENT_ID, CLIENT_SECRET)
+	r = requests.get(url=url)
+	data = r.json()
+	print data
+
+	last_checkin = data['response']['checkins']['items'][0]
+	created_at = dateutil.parser.parse(last_checkin['created_at'])
+	rating_score = last_checkin['rating_score']
+	beer_name = last_checkin['beer']['beer_name']
+	brewery_name = last_checkin['brewery']['brewery_name']
+	brewery_url = last_checkin['brewery']['contact']['url']
+
+	return {
+		"created_at":created_at,
+		"rating_score":rating_score,
+		"beer_name":beer_name,
+		"brewery_name":brewery_name,
+		"user_url":user_url,
+		"brewery_url":brewery_url,
 	}
 

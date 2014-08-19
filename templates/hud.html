@@ -6,7 +6,7 @@
 {% block main %}
 	<div class="col-md-6">
 		<div id="github">
-			<h3><a href="{{ github.user_url }}">Github</a></h3>
+			<h3><a href="{{ github.user_url }}">Github</a> ({{ github.time }})</h3>
 			<p>
 			Repo: <a href="{{ github.repo_url }}">{{ github.repo_name }}</a><br>
 			Commit message: {{ github.commit_message }}<br>
@@ -14,7 +14,7 @@
 			</p>
 		</div>
 		<div id="lastfm">
-			<h3><a href="{{ lastfm.user_url }}">Last.fm</a></h3>
+			<h3><a href="{{ lastfm.user_url }}">Last.fm</a> ({{ lastfm.time }})</h3>
 			<p>
 			<a href="{{ lastfm.url }}">{{ lastfm.title }} - {{ lastfm.artist }}</a><br>
 			{{ lastfm.status }}
@@ -24,7 +24,7 @@
 			</p>
 		</div>
 		<div id="twitter">
-			<h3><a href="{{ twitter.user_url }}">Twitter</a></h3>
+			<h3><a href="{{ twitter.user_url }}">Twitter</a> ({{ twitter.time }})</h3>
 			<p>
 			{{ twitter.text }}<br>
 			{{ twitter.date }}<br>
@@ -32,16 +32,24 @@
 			</p>
 		</div>
 		<div id="kippt">
-			<h3><a href="{{ kippt.user_url }}">Kippt</a></h3>
+			<h3><a href="{{ kippt.user_url }}">Kippt</a> ({{ kippt.time }})</h3>
 			<p>
 			<a href="{{ kippt.clip_url }}">{{ kippt.clip_title }}</a><br>
 			{{ kippt.created }}
 			</p>
 		</div>
+		<div id="untappd">
+			<h3><a href="{{ untappd.user_url }}">Untappd</a> ({{ untappd.time }})</h3>
+			<p>
+			{{ untappd.beer_name }}: {{ untappd.rating_score }}<br>
+			<a href="{{ untappd.brewery_url }}">{{ untappd.brewery_name }}</a><br>
+			{{ untappd.created_at }}
+			</p>
+		</div>
 	</div>
 	<div class="col-md-6">
 		<div id="strava">
-			<h3><a href="{{ strava.athlete_url }}">Strava</a></h3>
+			<h3><a href="{{ strava.athlete_url }}">Strava</a> ({{ strava.time }})</h3>
 			<p>
 			<a href="{{ strava.activity_url }}">{{ strava.name }}</a> - {{ strava.activity_type }}<br>
 			{{ strava.start_date }}<br>
@@ -52,7 +60,7 @@
 			</p>
 		</div>
 		<div id="goodreads">
-			<h3><a href="{{ goodreads.user_url }}">Goodreads</a></h3>
+			<h3><a href="{{ goodreads.user_url }}">Goodreads</a> ({{ goodreads.time }})</h3>
 			<p>{{ goodreads.action_text | safe }}<br>
 			{{ goodreads.updated_at }}</p>
 			<p>Currently reading:</p>
@@ -64,7 +72,7 @@
 			{% endfor %}
 		</div>
 		<div id="trakt">
-			<h3><a href="{{ trakt.user_url }}">Trakt.tv</a></h3>
+			<h3><a href="{{ trakt.user_url }}">Trakt.tv</a> ({{ trakt.time }})</h3>
 			<p>Movie: <a href="
 			{{ trakt.movie_url }}">{{ trakt.movie_title }}</a><br>
 			{{ trakt.movie_watched }}</p>
@@ -74,6 +82,6 @@
 				</p>
 			</div>
 		</div>
-		<p>Execution time: {{ execution_time }} seconds</p>
+		<p>Total execution time: {{ execution_time }} seconds</p>
 	</div>
 {% endblock %}
