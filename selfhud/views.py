@@ -11,6 +11,16 @@ import xml.etree.ElementTree as ET
 import dateutil.parser
 import datetime
 import time
+from tzlocal import get_localzone
+from pytz import timezone
+from datetime import timedelta
+
+# SERVER_TZ = get_localzone()
+SERVER_TZ = timezone("America/New_York")
+print "SERVER_TZ:",SERVER_TZ
+
+def localize_time(dt):
+	return dt - timedelta(hours=7)
 
 def add_api(hud, name, func):
 	try:
@@ -18,6 +28,7 @@ def add_api(hud, name, func):
 		hud[name] = func()
 		hud[name]['time'] = "%.2f" % (time.time() - start_time)
 	except:
+		print func()
 		pass
 
 def hud_view(request):
@@ -55,7 +66,7 @@ def github():
 	commit = payload['commits'][-1]
 	repo_name = repo['name']
 	user = item['actor']['login']
-	created_at = dateutil.parser.parse(item['created_at'])
+	created_at = localize_time(dateutil.parser.parse(item['created_at']))
 	url_template = "https://github.com/%s"
 	user_url = url_template % user
 	repo_url = url_template % repo_name
@@ -88,8 +99,8 @@ def last_fm():
 			status = "Now playing"
 	else:
 		date = track['date']['#text']
+		date = localize_time(dateutil.parser.parse(date))
 		status = "Played at:"
-		date = dateutil.parser.parse(date)
 	url = track['url']
 	user_url = "http://www.last.fm/user/%s" % (user)
 
@@ -139,7 +150,8 @@ def twitter():
 	except KeyError:
 		pass
 	text = last_tweet['text']
-	date = dateutil.parser.parse(last_tweet['created_at'])
+	date = localize_time(dateutil.parser.parse(last_tweet['created_at']))
+
 	tweet_id = last_tweet['id']
 	tweet_url = "https://twitter.com/%s/status/%d" % (USER, tweet_id)
 	user_url = "https://twitter.com/%s" % USER
@@ -202,7 +214,7 @@ def goodreads():
 	r = get_root(status_url)
 	update = r.find('user').find('updates').find('update')
 	action_text = update.find('action_text').text[3:] # chop off 'is ' from api
-	updated_at = dateutil.parser.parse(update.find('updated_at').text)
+	updated_at = localize_time(dateutil.parser.parse(update.find('updated_at').text))
 
 	# get books in currently-reading list
 	url = "https://www.goodreads.com/review/list/%d.xml?key=%s&v=2&shelf=currently-reading"
@@ -216,7 +228,7 @@ def goodreads():
 		title = book.find('title').text
 		link = book.find('link').text
 		author = book.find('authors').find('author').find('name').text
-		started_at = dateutil.parser.parse(review.find('started_at').text)
+		started_at = localize_time(dateutil.parser.parse(review.find('started_at').text))
 		currently_reading.append({
 			"title":title,
 			"author":author,
@@ -226,8 +238,9 @@ def goodreads():
 	return {
 		"user_url": "https://www.goodreads.com/review/list/%d" % (USER_ID),
 		"currently_reading":currently_reading,
-		"action_text":action_text,
-		"updated_at":updated_at,
+		
+		# "action_text":action_text,
+		# "updated_at":updated_at,
 	}
 
 def trakt():
@@ -248,8 +261,8 @@ def trakt():
 	r = requests.get(url=activity_url)
 	activity_data = r.json()
 
-	movie_watched = datetime.datetime.fromtimestamp(activity_data['movie']['watched'])
-	episode_watched = datetime.datetime.fromtimestamp(activity_data['episode']['watched'])
+	movie_watched = localize_time(datetime.datetime.fromtimestamp(activity_data['movie']['watched']))
+	episode_watched = localize_time(datetime.datetime.fromtimestamp(activity_data['episode']['watched']))
 
 	# get info for most recently viewed movie and show
 	movie = movie_data[0]
@@ -305,7 +318,7 @@ def untappd():
 	print data
 
 	last_checkin = data['response']['checkins']['items'][0]
-	created_at = dateutil.parser.parse(last_checkin['created_at'])
+	created_at = localize_time(dateutil.parser.parse(last_checkin['created_at']))
 	rating_score = last_checkin['rating_score']
 	beer_name = last_checkin['beer']['beer_name']
 	brewery_name = last_checkin['brewery']['brewery_name']
