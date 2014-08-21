@@ -7,7 +7,7 @@ import datetime
 from django.conf import settings
 import os
 import json
-from unqlite import UnQLite
+
 
 def github():
 	user = auth.github['user']
@@ -325,10 +325,7 @@ def main():
 	add_api(hud, "trakt", trakt)
 	add_api(hud, "kippt", kippt)
 	add_api(hud, "untappd", untappd)
-	db_name = 'apis.db'
-	db = UnQLite(db_name)
-	db['apis'] = json.dumps(hud)
-	db.close()
+	return hud
 
 
 if __name__ == '__main__':

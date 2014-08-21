@@ -1,24 +1,38 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+# from django.http import HttpResponse
+from models import APIData
+import update
 import json
 import sys
 import dateutil.parser
 import datetime
-import time
 from datetime import timedelta
+from django.utils import timezone
+import time
 import os
 import selfhud.update
-from django.conf import settings
-from unqlite import UnQLite
 
 def localize_time(dt):
 	return dt - timedelta(hours=7)
 
-def hud_view(request):
-	db_name = 'selfhud/apis.db'
-	db = UnQLite(db_name)
-	hud = json.loads(db['apis'])
+def call_update():
+	hud = update.main()
+	a = APIData(api_string=json.dumps(hud))
+	a.save()
 	convert_times(hud)
+	return hud
+
+def hud_view(request):
+	if len(APIData.objects.all()):
+		apis = APIData.objects.all()[0]
+		if datetime.datetime.utcnow().replace(tzinfo=timezone.utc) > (apis.date + timedelta(minutes=1)):
+			apis.delete()
+			hud = call_update()
+		else:
+			hud = json.loads(apis.api_string)
+			convert_times(hud)
+	else:
+		hud = call_update()
 	return render(request, 'hud.html', hud)
 
 def localize(d, key="", loc=True):
@@ -42,14 +56,3 @@ def convert_times(d):
 	d['trakt']['movie_watched'] = localize_time(datetime.datetime.fromtimestamp(d['trakt']['episode_watched']))
 	d['trakt']['episode_watched'] = localize_time(datetime.datetime.fromtimestamp(d['trakt']['episode_watched']))
 	d['kippt']['created'] = datetime.datetime.fromtimestamp(d['kippt']['created'])
-
-def api_json_view(request):
-	# db_name = os.path.join(settings.STATIC_ROOT, 'apis.db')
-	# if db_name not in os.listdir(os.getcwd()):
-	# 	selfhud.update.main()
-	# with f as open(db_name, 'r')
-	# hud = json.loads(f.read())
-	db_name = 'selfhud/apis.db'
-	db = UnQLite(db_name)
-	hud = json.loads(db['apis'])
-	return HttpResponse(json.dumps(hud), content_type="application/json")
