@@ -322,7 +322,7 @@ def main():
 	add_api(hud, "trakt", trakt)
 	add_api(hud, "kippt", kippt)
 	add_api(hud, "untappd", untappd)
-	db = jsondb('../apis.db')
+	db = jsondb('apis.db')
 	db.data = hud
 	db.dump()
 

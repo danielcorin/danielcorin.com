@@ -6,12 +6,17 @@ import dateutil.parser
 import datetime
 import time
 from datetime import timedelta
+import os
+import selfhud.update
 
 def localize_time(dt):
 	return dt - timedelta(hours=7)
 
 def hud_view(request):
-	db = jsondb('apis.db')
+	db_name = 'apis.db'
+	if db_name not in os.listdir(os.getcwd()):
+		selfhud.update.main()
+	db = jsondb(db_name)
 	hud = db.data
 	convert_times(hud)
 	return render(request, 'hud.html', hud)
