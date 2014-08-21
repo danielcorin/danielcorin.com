@@ -23,6 +23,7 @@ def call_update():
 	return hud
 
 def hud_view(request):
+	start_time = time.time()
 	if len(APIData.objects.all()):
 		apis = APIData.objects.all()[0]
 		if datetime.datetime.utcnow().replace(tzinfo=timezone.utc) > (apis.date + timedelta(minutes=1)):
@@ -33,6 +34,7 @@ def hud_view(request):
 			convert_times(hud)
 	else:
 		hud = call_update()
+	hud['load_time'] = "%.2f seconds" % (time.time() - start_time)
 	return render(request, 'hud.html', hud)
 
 def localize(d, key="", loc=True):
