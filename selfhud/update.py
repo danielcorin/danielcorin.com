@@ -1,12 +1,13 @@
-from __future__ import unicode_literals
 import auth
 import requests
 from requests_oauthlib import OAuth1
 import urllib
 import xml.etree.ElementTree as ET
 import datetime
-from jsondb import jsondb
-
+from django.conf import settings
+import os
+import json
+from unqlite import UnQLite
 
 def github():
 	user = auth.github['user']
@@ -68,15 +69,17 @@ def last_fm():
 	url = track['url']
 	user_url = "http://www.last.fm/user/%s" % (user)
 
-	return {
+	info = {
 		"title":title,
 		"artist":artist,
 		"status":status,
 		"url":url,
 		"user_url":user_url,
-		"date":date,
 	}
+	if date:
+		info['date'] = date
 
+	return info
 
 def twitter():
 	CONSUMER_KEY = auth.twitter['consumer_key']
@@ -322,9 +325,10 @@ def main():
 	add_api(hud, "trakt", trakt)
 	add_api(hud, "kippt", kippt)
 	add_api(hud, "untappd", untappd)
-	db = jsondb('apis.db')
-	db.data = hud
-	db.dump()
+	db_name = 'apis.db'
+	db = UnQLite(db_name)
+	db['apis'] = json.dumps(hud)
+	db.close()
 
 
 if __name__ == '__main__':

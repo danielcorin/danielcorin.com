@@ -15,4 +15,5 @@ urlpatterns = patterns('',
     url(r'^apps/$', TemplateView.as_view(template_name='apps.html'), name="apps"),
     url(r'^curses/$', 'nocurses.views.curses_view', name="curses"),
     url(r'^hud/$', 'selfhud.views.hud_view', name="hud"),
+    url(r'^apis/$', 'selfhud.views.api_json_view', name="api"),
 )
