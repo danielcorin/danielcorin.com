@@ -63,6 +63,7 @@ DJANGO_APPS = (
 MY_APPS = (
     'siteapp',
     'nocurses',
+    'selfhud',
 )
 
 THIRD_PARTY_APPS = (
@@ -118,9 +119,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "nocurses/static"),
-    os.path.join(BASE_DIR, "siteapp/static"),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "nocurses/static"),
+#     os.path.join(BASE_DIR, "siteapp/static"),
+# )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
