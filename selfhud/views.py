@@ -27,8 +27,8 @@ def hud_view(request):
 	if len(APIData.objects.all()):
 		apis = APIData.objects.all()[0]
 		if datetime.datetime.utcnow().replace(tzinfo=timezone.utc) > (apis.date + timedelta(minutes=1)):
-			apis.delete()
 			hud = call_update()
+			apis.delete()
 		else:
 			hud = json.loads(apis.api_string)
 			convert_times(hud)

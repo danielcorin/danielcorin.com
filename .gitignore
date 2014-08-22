@@ -1,6 +1,7 @@
 .DS_Store
 database.db
 selfhud/auth.py
+comparemovies/auth.py
 siteproject/local_settings.py
 db.sqlite3
 apis.db

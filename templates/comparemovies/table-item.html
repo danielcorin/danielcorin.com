@@ -1,0 +1,31 @@
+<tr class="table-item" data-toggle="collapse" data-target="#expandTarget{{ id }}" class="accordion-toggle">
+	<td>{{ rt_data.movie.title }}</td>
+	<td>{{ rt_data.movie.mpaa_rating }}</td>
+	<td>{{ rt_data.movie.ratings.audience_score }}%</td>
+	<td>{{ rt_data.movie.ratings.critics_score }}%</td>
+	<td>{{ imdb_data.imdbRating }}</td>
+	<td>{{ imdb_data.Metascore }}</td>
+	<!-- <td class="close_button">
+		<button type="button" class="close" id="closeId">×</button>
+	</td> -->
+</tr>
+<tr class="table-info-item">
+	<td colspan="6" class="hiddenRow">
+		<div class="accordian-body collapse" id="expandTarget{{ id }}">
+			<div class="col-md-3">
+				<img width="70%" height="70%" src="{{ imdb_data.Poster }}">
+				<!-- <a href="{{ rt_data. }}">Rotten Tomatoes</a><br>
+				<a href="{{ imdb_data. }}">IMDB</a> -->
+			</div>
+			<div class="col-md-9">
+				<div class="movie-info">
+				<p style="font-weight:bold;">{{ imdb_data.Plot }}</p>
+				<p>Director: {{ imdb_data.Director }}</p>
+				<p>Actors: {{ imdb_data.Actors }}</p>
+				<p>Year: {{ imdb_data.Year }}</p>
+				<p>Runtime: {{ rt_data.movie.runtime }} minutes</p>
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
