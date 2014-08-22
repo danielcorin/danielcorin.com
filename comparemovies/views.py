@@ -19,7 +19,10 @@ def query_rt(movie_title):
 			data['success'] = True
 			break
 	else:
-		data['success'] = False
+		try:
+			data['movie'] = response['movies'][0]
+		except:
+			data['success'] = False
 	return data
 
 def query_imdb(movie_title):
@@ -37,6 +40,7 @@ def query_imdb(movie_title):
 def query(request):
 	movie_title = request.POST['movie']
 	rt_data = query_rt(movie_title)
+	movie_title = rt_data['movie']['title']
 	imdb_data = query_imdb(movie_title)
 	if rt_data['success'] and imdb_data['success']:
 		global table_item_id
