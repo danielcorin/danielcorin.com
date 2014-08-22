@@ -2,6 +2,7 @@ $("#query").submit(function(event) {
 	submitQuery(event);
 });
 
+
 function submitQuery(event) {
 	event.preventDefault();
 	var url = "/query/";
@@ -33,7 +34,7 @@ function submitQuery(event) {
 	});
 }
 
-function resetForm(element) {
+function resetForm() {
 	$("#selector").select2('data', null)
 }
 

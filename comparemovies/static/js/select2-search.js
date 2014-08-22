@@ -53,4 +53,11 @@ $(document).ready(function() {
 		dropdownAutoWidth : true,
 		escapeMarkup: function (m) { return m; }
 	});
+	$(".select2-input").on('keyup', function(e) {
+		if(e.keyCode === 13) {
+			submitQuery(e);
+			resetForm();
+		}
+	});
+
 });

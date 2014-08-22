@@ -30,11 +30,12 @@
 			<div class="col-md-12">
 				<h3>Compare movies</h3>
 				<p>Search for movies and compare their ratings below.<br>
+				Press enter to confirm your selection. Then enter again to make your search.<br>
 				Click on an entry to show its information.</p>
 				
 				<form id="query" role="form">
 					{% csrf_token %}
-						<input type="hidden text" name="movie" id="selector" class="input-xlarge" style="width:20%" data-placeholder="Movie title" /><br>
+						<input type="hidden" name="movie" id="selector" class="input-xlarge" style="width:20%" data-placeholder="Movie title" /><br>
 						<input id="searchQuery" type="submit" value="Search" class="btn btn-default"/><br><br>
 				</form>
 				<button class="btn btn-default" id="clearAll">Clear</button>
