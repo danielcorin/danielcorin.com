@@ -30,8 +30,10 @@ function submitQuery(event) {
 			}
 			else {
 				$("#message").html();
-				$('#theTableBody').append(data);
+				$('#theTable tbody').append(data);
+				$("#theTable").trigger("update"); 
 				resetForm();
+				return false;
 			}
 		},
 		failure: function(data) {
