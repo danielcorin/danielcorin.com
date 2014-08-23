@@ -6,12 +6,19 @@ $("#query").submit(function(event) {
 function submitQuery(event) {
 	event.preventDefault();
 	var url = "/query/";
+	var title = null;
+	try {
+		title = $('#selector').select2('data').title;
+	}
+	catch(exc){
+		return;
+	}
 	$("#message").html();
 	$.ajax({
 		type: "POST",
 		url: url,
 		data: {
-			movie: $('#selector').select2('data').title,
+			movie: title,
 			csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]')[0].value
 		},
 		success: function(data) {

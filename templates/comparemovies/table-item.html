@@ -1,4 +1,4 @@
-<tr class="table-item" data-toggle="collapse" data-target="#expandTarget{{ id }}" class="accordion-toggle">
+<tr class="table-item" data-toggle="collapse" data-target="#expandTarget{{ id }}" class="accordion-toggle" id="row{{ id }}">
 	<td>{{ rt_data.movie.title }}</td>
 	<td>{{ rt_data.movie.mpaa_rating }}</td>
 	<td>{{ rt_data.movie.ratings.audience_score }}%</td>
@@ -9,7 +9,7 @@
 		<button type="button" class="close" id="closeId">×</button>
 	</td> -->
 </tr>
-<tr class="table-info-item">
+<tr class="table-info-item" id="info{{ id }}">
 	<td colspan="6" class="hiddenRow">
 		<div class="accordian-body collapse" id="expandTarget{{ id }}">
 			<div class="col-md-3">
