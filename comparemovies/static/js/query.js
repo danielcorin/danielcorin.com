@@ -50,4 +50,5 @@ function resetForm() {
 $("#clearAll").click(function(event){
 	event.preventDefault();
 	$("#theTableBody").empty();
+	$("#theTable").trigger("update"); 
 });
