@@ -41,7 +41,7 @@
 		<div id="untappd">
 			<h3><a href="{{ untappd.user_url }}">Untappd</a></h3>
 			<p>
-			{{ untappd.beer_name }}: {{ untappd.rating_score }}<br>
+			{{ untappd.beer_name }}: {{ untappd.rating_score }} stars<br>
 			<a href="{{ untappd.brewery_url }}">{{ untappd.brewery_name }}</a><br>
 			{{ untappd.created_at }}
 			</p>
@@ -74,11 +74,8 @@
 		</div>
 		<div id="trakt">
 			<h3><a href="{{ trakt.user_url }}">Trakt.tv</a></h3>
-			<p>Movie: <a href="
-			{{ trakt.movie_url }}">{{ trakt.movie_title }}</a><br>
-			{{ trakt.movie_watched }}</p>
-			<p>Show: <a href="
-				{{ trakt.show_url }}">{{ trakt.show_title }}:</a> <a href="{{ trakt.episode_url }}">{{ trakt.episode_string }}</a><br>
+			<p><a href="{{ trakt.show_url }}">{{ trakt.show_title }}</a>:<br>
+				<a href="{{ trakt.episode_url }}">{{ trakt.episode_title }}</a><br>
 				{{ trakt.episode_watched }}
 				</p>
 			</div>

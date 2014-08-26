@@ -222,45 +222,21 @@ def trakt():
 	API_KEY = auth.trakt['api_key']
 
 	user_url = "https://trakt.tv/user/%s" % USERNAME
-	movie_url = "http://api.trakt.tv/user/library/movies/watched.json/%s/%s" %(API_KEY, USERNAME)
-	show_url = "http://api.trakt.tv/user/library/shows/watched.json/%s/%s" % (API_KEY, USERNAME)
 
-	r = requests.get(url=movie_url)
-	movie_data = r.json()
-	r = requests.get(url=show_url)
-	show_data = r.json()
+	last_watched_url = "http://api.trakt.tv/user/watched/episodes.json/%s/%s" % (API_KEY, USERNAME)
+	r = requests.get(url=last_watched_url)
 
-	# get viewing times of most recent movie and episode
-	activity_url = "http://api.trakt.tv/user/lastactivity.json/%s/%s" % (API_KEY, USERNAME)
-	r = requests.get(url=activity_url)
-	activity_data = r.json()
-
-	# movie_watched = localize_time(datetime.datetime.fromtimestamp(activity_data['movie']['watched']))
-	# episode_watched = localize_time(datetime.datetime.fromtimestamp(activity_data['episode']['watched']))
-	movie_watched = activity_data['movie']['watched']
-	episode_watched = activity_data['episode']['watched']
-	# get info for most recently viewed movie and show
-	movie = movie_data[0]
-	show = show_data[0]
-
-	movie_url = movie['url']
-	show_url = show['url']
-
-	season = show['seasons'][0]['season']
-	episode = show['seasons'][0]['episodes'][0]
-	episode_url = "%s/season/%d/episode/%d" % (show_url, season, episode)
-	episode_string = "%dx%d" % (season, episode)
+	last = r.json()[0]
+	show = last['show']
+	episode = last['episode']
 
 	return {
 		"user_url":user_url,
-		"movie_title":movie['title'],
-		"movie_url":movie_url,
 		"show_title":show['title'],
-		"show_url":show_url,
-		"episode_url":episode_url,
-		"episode_string":episode_string,
-		"movie_watched":movie_watched,
-		"episode_watched":episode_watched,
+		"show_url":show['url'],
+		"episode_url":episode['url'],
+		"episode_watched":last['watched'],
+		"episode_title": episode['title'],
 	}
 
 def kippt():
