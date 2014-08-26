@@ -55,6 +55,5 @@ def convert_times(d):
 	for b in d['goodreads']['currently_reading']:
 		localize(b, key='started_at')
 	localize(d['untappd'], key='created_at')
-	d['trakt']['movie_watched'] = localize_time(datetime.datetime.fromtimestamp(d['trakt']['episode_watched']))
 	d['trakt']['episode_watched'] = localize_time(datetime.datetime.fromtimestamp(d['trakt']['episode_watched']))
 	d['kippt']['created'] = datetime.datetime.fromtimestamp(d['kippt']['created'])
