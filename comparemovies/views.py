@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import requests
 import json
 import auth
+from django.template import Context, Template
 
 table_item_id = 0
 
@@ -37,6 +38,7 @@ def query_imdb(movie_title):
 		response['success'] = True
 	return response
 
+
 def query(request):
 	movie_title = request.POST['movie']
 	rt_data = query_rt(movie_title)
@@ -56,3 +58,13 @@ def query(request):
 			"message":"Film not found",
 			"success":False,
 		}), content_type="application/json")
+
+def recent(request):
+	API_KEY = auth.rt_api_key
+	url = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=%s" % (API_KEY)
+	movies = {"movies": []}
+	r = requests.get(url=url)
+	movies['movies'] = [m['title'] for m in r.json()['movies']]
+	return HttpResponse(json.dumps(movies))
+
+

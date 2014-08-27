@@ -3,12 +3,13 @@ $("#query").submit(function(event) {
 });
 
 
-function submitQuery(event) {
+function submitQuery(event, title) {
 	event.preventDefault();
 	var url = "/query/";
-	var title = null;
 	try {
-		title = $('#selector').select2('data').title;
+		if (typeof(title)==='undefined') {
+			title = $('#selector').select2('data').title;
+		}
 	}
 	catch(exc){
 		return;
@@ -37,9 +38,25 @@ function submitQuery(event) {
 			}
 		},
 		failure: function(data) {
+			console.log("error");
 			$("#messge").html("Error");
 			resetForm();
 		},
+	});
+}
+
+$("#recent").click(function(event) {
+	event.preventDefault();
+	populateRecent(event);
+});
+
+function populateRecent(event) {
+	$.getJSON("/recent", function(data){
+		$.each(data.movies, function(i, movie_title){
+			submitQuery(event, movie_title);
+		});
+		resetForm();
+		return false;
 	});
 }
 
@@ -49,6 +66,7 @@ function resetForm() {
 
 $("#clearAll").click(function(event){
 	event.preventDefault();
+	$("#message").html();
 	$("#theTableBody").empty();
 	$("#theTable").trigger("update"); 
 });
