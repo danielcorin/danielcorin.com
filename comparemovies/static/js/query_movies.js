@@ -34,13 +34,13 @@ function submitQuery(event, title) {
 				$('#theTable tbody').append(data);
 				$("#theTable").trigger("update"); 
 				resetForm();
-				return false;
+				return;
 			}
 		},
 		failure: function(data) {
-			console.log("error");
 			$("#messge").html("Error");
 			resetForm();
+			return;
 		},
 	});
 }
@@ -64,9 +64,13 @@ function resetForm() {
 	$("#selector").select2('data', null)
 }
 
-$("#clearAll").click(function(event){
-	event.preventDefault();
-	$("#message").html();
+function clearAll() {
+	$("#message").html("");
 	$("#theTableBody").empty();
 	$("#theTable").trigger("update"); 
+}
+
+$("#clearAll").click(function(event){
+	event.preventDefault();
+	clearAll();
 });
