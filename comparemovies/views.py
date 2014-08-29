@@ -51,6 +51,7 @@ def query(request):
 			"imdb_data":imdb_data,
 			"id":table_item_id,
 		}
+		data['link'] = "http://www.rottentomatoes.com/m/%s" % (movie_title.lower().replace(" ","_"))
 		table_item_id += 1
 		return render(request, 'comparemovies/table-item.html', data)
 	else:
