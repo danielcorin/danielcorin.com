@@ -1,0 +1,13 @@
+<div id="goodreads">
+	<h3><a href="{{ goodreads.user_url }}">Goodreads</a></h3>
+	<p>{{ goodreads.action_text | safe }}<br>
+	{{ goodreads.updated_at }}</p>
+	<p>Currently reading: {{ goodreads.status }}
+	</p>
+	{% for book in goodreads.currently_reading %}
+		<p>
+		<a href="{{ book.link }}">{{ book.title }}</a> - {{ book.author }}<br>
+		Started at: {{ book.started_at }}
+		</p>
+	{% endfor %}
+</div>

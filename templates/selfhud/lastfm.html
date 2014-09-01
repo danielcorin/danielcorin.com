@@ -1,0 +1,10 @@
+<div id="lastfm">
+	<h3><a href="{{ lastfm.user_url }}">Last.fm</a></h3>
+	<p>
+	<a href="{{ lastfm.url }}">{{ lastfm.title }} - {{ lastfm.artist }}</a><br>
+	{{ lastfm.status }}
+	{% if lastfm.date %}
+		{{ lastfm.date }}
+	{% endif %}
+	</p>
+</div>
