@@ -25,5 +25,7 @@ urlpatterns = patterns('',
     url(r'^movies/$', TemplateView.as_view(template_name='comparemovies/base.html'), name="comparemovies_base"),
     url(r'^query/$', 'comparemovies.views.query', name="query"),
     url(r'^recent/$', 'comparemovies.views.recent', name="recent"),
+
+    url(r'^sorting/$', TemplateView.as_view(template_name='comparemovies/sorting.html'), name="sorting"),
     
 )
