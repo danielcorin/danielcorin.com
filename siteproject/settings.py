@@ -21,7 +21,7 @@ import local_settings
 SECRET_KEY = '4p=&$upy*&$d$mhm%a+h31(47%)ucpsp81z(+5wx2!wzlgt0cs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
