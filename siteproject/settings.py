@@ -124,7 +124,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "nocurses/static"),
     os.path.join(BASE_DIR, "siteapp/static"),
     os.path.join(BASE_DIR, "comparemovies/static"),
-    os.path.join(BASE_DIR, "bb/static"),
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
