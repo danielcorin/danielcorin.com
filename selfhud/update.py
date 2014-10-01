@@ -152,7 +152,7 @@ def strava():
 	data = requests.get(ath_url, headers=header).json()[0]
 	name = data['name']
 	# start_date = dateutil.parser.parse(data['start_date_local'])
-	start_date = data['start_date_local']
+	start_date = data['start_date']
 	elevation_gain = data['total_elevation_gain']*M_TO_FT
 	distance = data['distance']*M_TO_MI
 	max_speed = data['max_speed']*MPS_TO_MPH
