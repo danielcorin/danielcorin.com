@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+	<title>hud | danielcorin</title>
+{% endblock %}
+{% block head %}
+{% include 'new_selfhud/github.html' %}
+{% include 'new_selfhud/lastfm.html' %}
+{% include 'new_selfhud/twitter.html' %}
+{% include 'new_selfhud/kippt.html' %}
+{% include 'new_selfhud/trakt.html' %}
+{% include 'new_selfhud/strava.html' %}
+{% include 'new_selfhud/goodreads.html' %}
+{% include 'new_selfhud/untappd.html' %}
+<script type="text/javascript" src="{% static 'js/underscore.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/hud.js' %}"></script>
+{% endblock %}
+{% block header %}HUD{% endblock %}
+{% block main %}
+	<div class="col-md-6">
+		<div id="github"></div>
+		<div id="lastfm"></div>
+		<div id="twitter"></div>
+		<div id="kippt"></div>
+	</div>
+	<div class="col-md-6">
+		<div id="strava"></div>
+		<div id="goodreads"></div>
+		<div id="untappd"></div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+<script id="strava_template" type="x-tmpl-mustache">
+	<h3><a href="<%= data.athlete_url %>">Strava</a></h3>
+	<p>
+	<a href="<%= data.activity_url %>"><%= data.name %></a> - <%= data.activity_type %><br>
+	<%= data.start_date %><br>
+	Elapsed time: <%= data.elapsed_time %><br>
+	Distance: <%= data.distance_in_mi %> mi <br>
+	Max speed: <%= data.max_speed_mph %> mph <br>
+	Elevation gain: <%= data.elevation_gain_ft %> ft
+	</p>
+</script>

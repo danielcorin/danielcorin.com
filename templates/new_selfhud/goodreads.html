@@ -1,0 +1,13 @@
+<script id="goodreads_template" type="x-tmpl-mustache">
+	<h3><a href="<%= data.user_url %>">Goodreads</a></h3>
+	<p><%= data.action_text %><br>
+	<%= data.updated_at %></p>
+	<p>Currently reading: <%= data.status %>
+	</p>
+	<% _.each(data.currently_reading, function(book) { %>
+		<p>
+		<a href="<%= book.link %>"><%= book.title %></a> - <%= book.author %><br>
+		Started at: <%= book.started_at %>
+		</p>
+	<% }); %>
+</script>
