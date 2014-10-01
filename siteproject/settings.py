@@ -65,7 +65,6 @@ MY_APPS = (
     'nocurses',
     'selfhud',
     'comparemovies',
-    'bb',
 )
 
 THIRD_PARTY_APPS = (
