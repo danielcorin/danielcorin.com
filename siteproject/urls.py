@@ -19,11 +19,15 @@ urlpatterns = patterns('',
     url(r'^curses/$', 'nocurses.views.curses_view', name="curses"),
     
     # hud
-    url(r'^hud/$', 'selfhud.views.hud_view', name="hud"),
+    url(r'^hud/(?P<api_name>\w+)/$', 'selfhud.views.get_hud_api', name="get_hud_api"),
+    url(r'^hud/$', TemplateView.as_view(template_name='new_selfhud/hud.html'), name="new_hud_view"),
 
     # compare movies
     url(r'^movies/$', TemplateView.as_view(template_name='comparemovies/base.html'), name="comparemovies_base"),
     url(r'^query/$', 'comparemovies.views.query', name="query"),
     url(r'^recent/$', 'comparemovies.views.recent', name="recent"),
+
+    # backbone test app
+    url(r'^bb/$', TemplateView.as_view(template_name='bb/base.html'), name=""),
     
 )

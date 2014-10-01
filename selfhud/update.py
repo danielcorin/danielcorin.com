@@ -37,15 +37,17 @@ def github():
 	repo_url = url_template % repo_name
 
 	return {
-		"commit_message":commit['message'],
-		"user":user,
-		"repo_name":repo_name,
-		"created_at":created_at,
-		"user_url":user_url,
-		"repo_url":repo_url,
+		"data": {
+			"commit_message":commit['message'],
+			"user":user,
+			"repo_name":repo_name,
+			"created_at":created_at,
+			"user_url":user_url,
+			"repo_url":repo_url,
+		}
 	}
 
-def last_fm():
+def lastfm():
 	api_key = auth.lastfm['api_key']
 	client_secret = auth.lastfm['client_secret']
 	user = auth.lastfm['user']
@@ -79,7 +81,7 @@ def last_fm():
 	if date:
 		info['date'] = date
 
-	return info
+	return {"data": info}
 
 def twitter():
 	CONSUMER_KEY = auth.twitter['consumer_key']
@@ -124,10 +126,12 @@ def twitter():
 	tweet_url = "https://twitter.com/%s/status/%d" % (USER, tweet_id)
 	user_url = "https://twitter.com/%s" % USER
 	info =  {
+	"data": {
 		"text":text,
 		"date":date,
 		"tweet_url":tweet_url,
 		"user_url":user_url,
+		}
 	}
 	return info
 
@@ -158,15 +162,17 @@ def strava():
 	athlete_url = "http://www.strava.com/athletes/%d" % (ATHLETE_ID)
 
 	return {
-		"name":name,
-		"start_date":start_date,
-		"distance_in_mi":"%.1f" %distance,
-		"max_speed_mph":"%.1f" %max_speed,
-		"elevation_gain_ft":"%.1f" %elevation_gain,
-		"elapsed_time":str(elapsed_time),
-		"activity_type":activity_type,
-		"activity_url":activity_url,
-		"athlete_url":athlete_url,
+		"data": {
+			"name":name,
+			"start_date":start_date,
+			"distance_in_mi":"%.1f" %distance,
+			"max_speed_mph":"%.1f" %max_speed,
+			"elevation_gain_ft":"%.1f" %elevation_gain,
+			"elapsed_time":str(elapsed_time),
+			"activity_type":activity_type,
+			"activity_url":activity_url,
+			"athlete_url":athlete_url,
+		}
 	}
 
 def get_root(url):
@@ -215,6 +221,7 @@ def goodreads():
 	}
 	if not currently_reading:
 		info['status'] = "None"
+	info = {"data": info}
 	return info
 
 def trakt():
@@ -231,12 +238,14 @@ def trakt():
 	episode = last['episode']
 
 	return {
-		"user_url":user_url,
-		"show_title":show['title'],
-		"show_url":show['url'],
-		"episode_url":episode['url'],
-		"episode_watched":last['watched'],
-		"episode_title": episode['title'],
+		"data": {
+			"user_url":user_url,
+			"show_title":show['title'],
+			"show_url":show['url'],
+			"episode_url":episode['url'],
+			"episode_watched":last['watched']*1000,
+			"episode_title": episode['title'],
+		}
 	}
 
 def kippt():
@@ -251,10 +260,12 @@ def kippt():
 	clip = clips['objects'][0]
 
 	return {
-		"clip_url":clip['url'],
-		"clip_title":clip['title'],
-		"user_url":user_url,
-		"created":clip['created'],
+		"data": {
+			"clip_url":clip['url'],
+			"clip_title":clip['title'],
+			"user_url":user_url,
+			"created":clip['created']*1000,
+		}
 	}
 
 def untappd():
@@ -276,12 +287,14 @@ def untappd():
 	brewery_url = last_checkin['brewery']['contact']['url']
 
 	return {
-		"created_at":created_at,
-		"rating_score":rating_score,
-		"beer_name":beer_name,
-		"brewery_name":brewery_name,
-		"user_url":user_url,
-		"brewery_url":brewery_url,
+		"data": {
+			"created_at":created_at,
+			"rating_score":rating_score,
+			"beer_name":beer_name,
+			"brewery_name":brewery_name,
+			"user_url":user_url,
+			"brewery_url":brewery_url,
+		}
 	}
 
 def add_api(hud, name, func):
@@ -294,7 +307,7 @@ def add_api(hud, name, func):
 def main():
 	hud = {}
 	add_api(hud, "github", github)
-	add_api(hud, "lastfm", last_fm)
+	add_api(hud, "lastfm", lastfm)
 	add_api(hud, "twitter", twitter)
 	add_api(hud, "strava", strava)
 	add_api(hud, "goodreads", goodreads)

@@ -10,7 +10,7 @@ function template_id(api_name) {
 }
 
 function api_url(api_name) {
-	return '/new_hud/' + api_name;
+	return '/hud/' + api_name;
 }
 
 function convert_date(data) {
