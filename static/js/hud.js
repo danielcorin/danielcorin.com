@@ -1,5 +1,4 @@
-// var api_array = ['github', 'goodreads', 'kippt', 'lastfm', 'strava', 'twitter', 'untappd'];
-var api_array = ['goodreads']
+var api_array = ['github', 'goodreads', 'kippt', 'lastfm', 'strava', 'twitter', 'untappd'];
 var date_keys = ['created_at', 'date', 'start_date', 'updated_at', 'created', 'episode_watched']
 
 function api_tag(api_name) {
@@ -19,10 +18,6 @@ function convert_date(data) {
 		if (data[date_keys[i]] !== undefined) {
 			var d = new Date(data[date_keys[i]]);
 			data[date_keys[i]] = d.toLocaleString();
-		}
-		if (data['currently_reading'] !== undefined) {
-			var d  = new Date(data['currently_reading'][0]['started_at']);
-			data['currently_reading'][0]['started_at'] = d.toLocaleString();
 		}
 	}
 	return data;
