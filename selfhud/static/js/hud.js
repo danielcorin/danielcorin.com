@@ -1,4 +1,4 @@
-var api_array = ['github', 'goodreads', 'kippt', 'lastfm', 'strava', 'twitter', 'untappd'];
+var api_array = ['github', 'goodreads', 'kippt', 'lastfm', 'strava', 'twitter', 'untappd', 'swarm'];
 var date_keys = ['created_at', 'date', 'start_date', 'updated_at', 'created', 'episode_watched']
 
 function api_tag(api_name) {

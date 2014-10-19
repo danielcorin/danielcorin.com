@@ -7,6 +7,7 @@ import datetime
 from django.conf import settings
 import os
 import json
+import foursquare
 
 
 def github():
@@ -296,6 +297,28 @@ def untappd():
 			"brewery_url":brewery_url,
 		}
 	}
+
+def swarm():
+	client_id = auth.foursquare['client_id']
+	client_secret = auth.foursquare['client_secret']
+	access_token = auth.foursquare['access_token']
+
+	client = foursquare.Foursquare(client_id=client_id, client_secret=client_secret)
+	client.set_access_token(access_token)
+
+	# Get the user's data
+	user = client.users()
+	data = {}
+	checkins = client.users.checkins()
+	for item in checkins['checkins']['items']:
+		if item['type'] == 'checkin':
+			data['name']=  item['venue']['name']
+			data['url'] = item['venue']['url']
+			data['address'] = "\n".join(x for x in item['venue']['location']['formattedAddress'])
+			data['created_at'] = item['createdAt'] * 1000
+			break
+	return {'data':data}
+
 
 def add_api(hud, name, func):
 	try:

@@ -77,6 +77,8 @@ def get_hud_api(request, api_name):
 		data = update.twitter()
 	elif api_name == 'untappd':
 		data = update.untappd()
+	elif api_name == 'swarm':
+		data = update.swarm()
 	else:
 		data = {"message":"error"}
 	return HttpResponse(json.dumps(data), content_type="application/json")
