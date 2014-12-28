@@ -1,0 +1,40 @@
+{% extends 'bb/base.html' %}
+{% block content %}
+	<section id="life-app">
+		<header id="header">
+			<h1>Life app</h1>
+			<nav>
+				<ul style="list-style-type: none;">
+					<li>Previous</li>
+					<li>Random</li>
+				</ul>
+			</nav>
+			<div class="new-entry">
+				<textarea class="entry-field" id="new-entry-field" placeholder="What happened today?" rows="4" cols="50"></textarea>
+				<a href="#" class="add">Add</a>
+			</div>
+		</header>
+		<section id="main">
+			<ul id="entry-list">
+				<script id="entry-template" type="text/template">
+				<div class="entry-item">
+					<div class="view">
+						<p><%= date %></p>
+						<p><%= entry %></p>
+						<a href="#" class="destroy">Delete</a>
+						<a href="#" class="edit">Edit</a>
+					</div>
+				</div>
+				</script>
+			</ul>
+			<script id="edit-entry-template" type="text/template">
+				<div class="entry-item">
+					<p><%= date %></p>
+					<textarea id="edit-field" class="entry-field" rows="4" cols="50"><%= entry %></textarea>
+					<a href="#" class="update">Update</a>
+					<a href="#" class="cancel">Cancel</a>
+				</div>
+			</script>
+		</section>
+	</section>
+{% endblock %}

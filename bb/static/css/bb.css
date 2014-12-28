@@ -1,0 +1,35 @@
+body {
+	font-family: Helvetica;
+}
+
+.new-entry {
+	/*background-color: #FFF;
+	border-style: solid;
+	border-color: #dddddd;
+	padding: 25px;
+	border-radius: 10px;
+	border-width: 3px;
+	position: relative;
+	margin: 5px;
+	width: 40em;*/
+}
+
+.entry-item {
+	background-color: #FFF;
+	border-style: solid;
+	border-color: #dedddc;
+	padding: 25px;
+	border-radius: 10px;
+	border-width: 3px;
+	position: relative;
+	margin: 5px;
+	width: 40em;
+}
+
+ul {
+	list-style-type: none;
+}
+
+textarea {
+	font-family: Helvetica;
+}
