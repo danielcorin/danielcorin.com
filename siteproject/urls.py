@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
+
+
 from django.contrib import admin
 admin.autodiscover()
 
@@ -19,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^curses/$', 'nocurses.views.curses_view', name="curses"),
     
     # hud
-    url(r'^hud/(?P<api_name>\w+)/$', 'selfhud.views.get_hud_api', name="get_hud_api"),
+    url(r'^hud/(?P<api_name>\w+)(/)$', 'selfhud.views.get_hud_api', name="get_hud_api"),
     url(r'^hud/$', TemplateView.as_view(template_name='new_selfhud/hud.html'), name="new_hud_view"),
 
     # compare movies
@@ -27,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^query/$', 'comparemovies.views.query', name="query"),
     url(r'^recent/$', 'comparemovies.views.recent', name="recent"),
 
-    # backbone test app
-    url(r'^bb/$', TemplateView.as_view(template_name='bb/base.html'), name=""),
+    url(r'^bb/', include('bb.api.urls')),
+   
     
 )

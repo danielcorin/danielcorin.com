@@ -65,14 +65,21 @@ MY_APPS = (
     'nocurses',
     'selfhud',
     'comparemovies',
+    'bb',
 )
 
 THIRD_PARTY_APPS = (
     'south',
+    'tastypie',
 )
 
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRD_PARTY_APPS
+
+# try:
+#     INSTALLED_APPS += local_settings.DEV_APPS
+# except:
+#     pass
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -124,6 +131,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "nocurses/static"),
     os.path.join(BASE_DIR, "siteapp/static"),
     os.path.join(BASE_DIR, "comparemovies/static"),
+    os.path.join(BASE_DIR, "bb/static"),
 )
+
+# try:
+#     STATICFILES_DIRS += local_settings.dev_static(BASE_DIR)
+# except:
+#     pass
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
