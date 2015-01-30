@@ -275,7 +275,7 @@ def untappd():
 	CLIENT_SECRET = auth.untappd['client_secret']
 	user_url = "https://untappd.com/user/%s" % (USERNAME)
 
-	url = "http://api.untappd.com/v4/user/checkins/%s?client_id=%s&client_secret=%s" % (USERNAME, CLIENT_ID, CLIENT_SECRET)
+	url = "https://api.untappd.com/v4/user/checkins/%s?client_id=%s&client_secret=%s" % (USERNAME, CLIENT_ID, CLIENT_SECRET)
 	r = requests.get(url=url)
 	data = r.json()
 
