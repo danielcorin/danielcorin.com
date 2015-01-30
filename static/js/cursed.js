@@ -10,6 +10,5 @@ $("span.increment").click(function(e){
 
 		$("#count_des").find(".count_value").html(data.count_des);
 		$("#count_des").find(".amt").html(data.amt_des);
-
 	});
 });

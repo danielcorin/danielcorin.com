@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^query/$', 'comparemovies.views.query', name="query"),
     url(r'^recent/$', 'comparemovies.views.recent', name="recent"),
 
-    url(r'^bb/', include('bb.api.urls')),
+   # url(r'^bb/', include('bb.api.urls')),
    
     
 )

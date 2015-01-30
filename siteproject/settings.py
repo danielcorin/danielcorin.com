@@ -65,7 +65,7 @@ MY_APPS = (
     'nocurses',
     'selfhud',
     'comparemovies',
-    'bb',
+ #   'bb',
 )
 
 THIRD_PARTY_APPS = (
@@ -131,7 +131,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "nocurses/static"),
     os.path.join(BASE_DIR, "siteapp/static"),
     os.path.join(BASE_DIR, "comparemovies/static"),
-    os.path.join(BASE_DIR, "bb/static"),
+#    os.path.join(BASE_DIR, "bb/static"),
 )
 
 # try:
